@@ -16,7 +16,7 @@ class Labyrinth():
         self.get_txt_labytinth()
         self.get_manipulable_labyrinth()
 
-    def get_txt_labytinth(self): # 
+    def get_txt_labytinth(self): 
         with open ("N1.txt", "r") as labyritnh_file:
             self.txt_labyrinth = labyritnh_file.read()
 
@@ -71,6 +71,7 @@ class Game():
         self.labyrinth = Labyrinth()
         self.item = Item(labyrinth=self.labyrinth.manipulable_labyrinth)
 
+class Characters():
 
 game = Game()
 pprint.pprint(game.labyrinth.manipulable_labyrinth)
