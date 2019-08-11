@@ -14,10 +14,10 @@ class Tableau():
 
         ligne_count = 0
 
-        for i in range(0, self.nrb_ligne, self.sprite):
+        for ligne in range(0, self.nrb_ligne, self.sprite):
             list_ligne = []
 
-            for j in range(0, self.nbr_colonne, self.sprite):
+            for colonne in range(0, self.nbr_colonne, self.sprite):
                 list_ligne.append(ligne_count)
                 ligne_count += 1
             self.mon_tableau.append(list_ligne)
