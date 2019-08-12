@@ -24,7 +24,7 @@ class Tableau():
             self.mon_tableau.append(list_ligne)
             
 
-    def find_value(self):
+    def find_valeur(self):
 
         continuer = 1
         while continuer == 1:
@@ -39,19 +39,26 @@ class Tableau():
                 column_number = int(column_number)
                 print(self.mon_tableau[line_number][column_number])
 
-test = Tableau()
-pprint.pprint(test.mon_tableau)
-test.find_value()
-
-
+    def find_position(self):
+        
+        continuer = 1
+        while continuer == 1:
+            valeur = input("Entrer la valeur ('q' pour quitter): ")
+            
+            if valeur == "q":
+                continuer = 0
                 
-
-
-
-
-
-
-
-
-
-
+            else:
+                valeur = int(valeur)
+                for ligne in self.mon_tableau:
+                    if valeur in ligne:
+                        l_pos = self.mon_tableau.index(ligne)
+                        c_pos = self.mon_tableau[l_pos].index(valeur)
+                        
+                
+                print("pos = {} , {}".format(l_pos , c_pos))
+            
+          
+                
+test = Tableau()
+test.find_position()
