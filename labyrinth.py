@@ -103,6 +103,7 @@ class Game():
                     column_pos = self.labyrinth[self.line_pos].index(position)
                     search = 0
                     self.init_position = (self.line_pos, self.column_pos)
+                    self.labyrinth[self.line_pos][self.column_pos] = "X"
                 count_line += 1
 
     def player_movement(self):
@@ -111,8 +112,10 @@ class Game():
         column_pos = self.column_pos
         self.count_item = 3
         run = 1
+        
         while run == 1:
-            movement_request = input("Choose a way (r for RIGHT, l for LEFT, u for UP, d for DOWN) : ")
+            pprint.pprint(self.labyrinth)
+            movement_request = input("Choose a way (q for QUIT)(r for RIGHT, l for LEFT, u for UP, d for DOWN) : ")
 
             if movement_request == "q":
                 run = 0
@@ -155,12 +158,6 @@ class Game():
                 line_pos = self.line_pos
                 column_pos = self.column_pos
             
-            
-            pprint.pprint(self.labyrinth)
-            
-            
-        
-    
 
 test = Game()
             
