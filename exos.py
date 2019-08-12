@@ -62,7 +62,4 @@ class Tableau():
                     if recherche == 1:
                         print("la valeur {} n'est pas dans le tableau".format(valeur))
                         recherche = 0
-                            
-                
-test = Tableau()
-test.find_position()
+
