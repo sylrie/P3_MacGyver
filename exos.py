@@ -47,18 +47,22 @@ class Tableau():
             
             if valeur == "q":
                 continuer = 0
-                
+
             else:
                 valeur = int(valeur)
-                for ligne in self.mon_tableau:
-                    if valeur in ligne:
-                        l_pos = self.mon_tableau.index(ligne)
-                        c_pos = self.mon_tableau[l_pos].index(valeur)
-                        
-                
-                print("pos = {} , {}".format(l_pos , c_pos))
-            
-          
+                recherche = 1
+                while recherche == 1:
+                    for ligne in self.mon_tableau:
+                        if valeur in ligne:
+                            l_pos = self.mon_tableau.index(ligne)
+                            c_pos = self.mon_tableau[l_pos].index(valeur)
+                            recherche = 0
+                            print("pos = {} , {}".format(l_pos , c_pos))
+                      
+                    if recherche == 1:
+                        print("la valeur {} n'est pas dans le tableau".format(valeur))
+                        recherche = 0
+                            
                 
 test = Tableau()
 test.find_position()
