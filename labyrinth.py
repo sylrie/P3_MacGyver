@@ -1,5 +1,7 @@
+   
 import pprint
 from random import randrange, choice
+#from window_interface import *
 
 """
 """
@@ -114,8 +116,9 @@ class Game():
         run = 1
         
         while run == 1:
-            pprint.pprint(self.labyrinth)
-            movement_request = input("Choose a way (q for QUIT)(r for RIGHT, l for LEFT, u for UP, d for DOWN) : ")
+            #pprint.pprint(self.labyrinth)
+         
+            sprite_content = ""
 
             if movement_request == "q":
                 run = 0
@@ -156,8 +159,8 @@ class Game():
             # if sprite is a wall, cancel movement
             else:
                 line_pos = self.line_pos
-                column_pos = self.column_pos
-            
+                column_pos = self.column_pos 
+                
+        
 
-test = Game()
             
