@@ -1,7 +1,6 @@
-   
 import pprint
 from random import randrange, choice
-#from window_interface import *
+from game_display import *
 
 """
 """
@@ -39,8 +38,8 @@ class Items():
     def __init__(self,labyrinth):
         self.labyrinth = labyrinth
         self.random_position()
-        self.create_needle()
-        self.create_ether()
+        self.create_tube()
+        self.create_dropper()
         self.create_syringe()
     
     # Create random position
@@ -58,15 +57,15 @@ class Items():
         random_column = choice(column)
         return (random_line, random_column)
 
-    # Create item 'needle' at random position
-    def create_needle(self):
+    # Create item 'tube' at random position
+    def create_tube(self):
         init_position = self.random_position()
-        self.labyrinth[init_position[0]][init_position[1]] = "N"
+        self.labyrinth[init_position[0]][init_position[1]] = "T"
     
-    # Create item 'ether' at random position
-    def create_ether(self):
+    # Create item 'dropper' at random position
+    def create_dropper(self):
         init_position = self.random_position()
-        self.labyrinth[init_position[0]][init_position[1]] = "E"    
+        self.labyrinth[init_position[0]][init_position[1]] = "D"    
     
     # Create item 'syringe' at random position
     def create_syringe(self):
@@ -116,9 +115,10 @@ class Game():
         run = 1
         
         while run == 1:
-            #pprint.pprint(self.labyrinth)
+            pprint.pprint(self.labyrinth)
          
             sprite_content = ""
+            movement_request = input("Choose direction ('r', 'l', 'u', 'd') or 'q' fo quit : ")
 
             if movement_request == "q":
                 run = 0
@@ -145,7 +145,7 @@ class Game():
                 self.labyrinth[self.line_pos][self.column_pos] = "X"
             
             # if player is on an item posisition, change count of remaining item    
-            if sprite_content == "N" or sprite_content == "E" or sprite_content == "S":
+            if sprite_content == "T" or sprite_content == "D" or sprite_content == "S":
                 self.count_item -= 1
                 print("you picked one item")
             
@@ -159,8 +159,7 @@ class Game():
             # if sprite is a wall, cancel movement
             else:
                 line_pos = self.line_pos
-                column_pos = self.column_pos 
-                
-        
-
+                column_pos = self.column_pos
             
+
+test = Game()
