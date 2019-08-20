@@ -1,6 +1,6 @@
 import pprint
 from random import randrange, choice
-from game_display import *
+#from game_display import *
 
 """
 """
@@ -160,6 +160,7 @@ class Game():
             else:
                 line_pos = self.line_pos
                 column_pos = self.column_pos
+                """
             
 
-test = Game()
+
