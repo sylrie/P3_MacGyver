@@ -107,7 +107,7 @@ class Game():
                     self.labyrinth[self.line_pos][self.column_pos] = "X"
                 count_line += 1
 
-    def player_movement(self):
+    """def player_movement(self):
         movement_request = ""
         line_pos = self.line_pos
         column_pos = self.column_pos
@@ -162,5 +162,3 @@ class Game():
                 column_pos = self.column_pos
                 """
             
-
-
