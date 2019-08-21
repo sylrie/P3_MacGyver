@@ -41,6 +41,7 @@ class Items():
         self.create_tube()
         self.create_dropper()
         self.create_syringe()
+        self.create_heart()
     
     # Create random position
     def random_position(self):
@@ -70,7 +71,12 @@ class Items():
     # Create item 'syringe' at random position
     def create_syringe(self):
         init_position = self.random_position()
-        self.labyrinth[init_position[0]][init_position[1]] = "S"    
+        self.labyrinth[init_position[0]][init_position[1]] = "S" 
+
+    # Create item 'heart' at random position
+    def create_heart(self):
+        init_position = self.random_position()
+        self.labyrinth[init_position[0]][init_position[1]] = "H"   
 
 class Create_game():
     """ Create labyrinthe structure
