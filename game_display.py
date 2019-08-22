@@ -5,7 +5,7 @@ from game_event import *
 
 
 class GameInterface():
-    """
+    """ Manage display and sound using Pygame
     """
 
     def __init__(self):
@@ -20,15 +20,13 @@ class GameInterface():
         self.rect_position()
         self.window_display()
 
-
     def create_surface (self):
 
         pygame.display.init()
         pygame.display.set_caption(title)
         self.window_surface = pygame.display.set_mode(window_resolution)
-
         
-    
+    # load all sounds
     def load_sounds(self):
         pygame.mixer.init()
         
@@ -39,7 +37,7 @@ class GameInterface():
         self.piked_sound.set_volume(0.1)
 
         self.lost_life_sound = pygame.mixer.Sound(lost_life_sound)
-        self.lost_life_sound.set_volume(0.1)
+        self.lost_life_sound.set_volume(0.2)
 
         self.win_sound = pygame.mixer.Sound(win_sound)
         self.win_sound.set_volume(0.1)
@@ -47,7 +45,7 @@ class GameInterface():
         self.lost_sound = pygame.mixer.Sound(lost_sound)
         self.lost_sound.set_volume(0.1)
 
-
+    # load all images
     def load_images(self):
 
         self.home_pic = pygame.image.load(home_pic)
@@ -58,8 +56,6 @@ class GameInterface():
 
         self.start_button = pygame.image.load(start_button)
         self.quit_button = pygame.image.load(quit_button)
-
-        self.background_pic = pygame.image.load(background_pic)
         
         self.restart_button = pygame.image.load(restart_button)
         self.quit_button_game = pygame.image.load(quit_button_game)
@@ -98,6 +94,7 @@ class GameInterface():
         self.lost_pic = pygame.image.load(lost_pic).convert()
         self.win_pic = pygame.image.load(win_pic).convert()
         
+    # Create Rect surfaces
     def rect_position(self):
     
         self.start_rect = pygame.Rect((293, 62), (130, 126))
@@ -108,10 +105,10 @@ class GameInterface():
         self.restart_rect = pygame.Rect((5, 456), (180, 25))
         self.quit_game_rect = pygame.Rect((5, 490), (180, 25))
     
-    
+    # Manage images to display
     def window_display(self):
 
-
+        # Main loop
         run_display = 1
         while run_display == 1:
             
@@ -121,6 +118,7 @@ class GameInterface():
             run_game = 1
             display_infos = 0
 
+            # Home loop
             while run_home == 1:
                 
                 pygame.time.Clock().tick(30)
@@ -138,41 +136,42 @@ class GameInterface():
 
                     elif event.type == MOUSEBUTTONDOWN:
                         if event.button == 1:
-
-                            if self.info_rect.collidepoint(event.pos):
-                                display_infos = 1                                
-                            
+                                    
                             if self.quit_rect.collidepoint(event.pos):
                                 quit()
-                            if self.start_rect.collidepoint(event.pos):
+
+                            if self.start_rect.collidepoint(event.pos): # run the game display
                                 run_home = 0
+
+                            if self.info_rect.collidepoint(event.pos): # active show infos
+                                display_infos = 1 
 
                     elif event.type == MOUSEBUTTONUP:
                         if event.button == 1:
-                            if self.info_rect.collidepoint(event.pos):
+                            if self.info_rect.collidepoint(event.pos):# close show infos
                                 display_infos = 0 
 
                 pygame.display.flip()   
-                
+            
+            # Game loop    
             while run_game == 1:
 
                 pygame.time.Clock().tick(30)
-
 
                 self.lost_life = self.event.lost_life
                 self.picked_item = self.event.picked_item
                 self.player_pos = self.event.player_pos
                 self.health = self.event.health
+                self.health2 = 2
                 self.items = self.event.items
                 self.end_game = self.event.end_game
                 
+                # display images for the game
                 self.window_surface.fill(black_color)
                 self.window_surface.blit(self.restart_button, [5, 456])
                 self.window_surface.blit(self.quit_button_game, [5, 490])
-                #self.window_surface.blit(self.background_pic, [0,0])
                     
                 self.window_surface.blit(self.gardian_pic, [14*sprite_cote, 14*sprite_cote])
-
 
                 self.window_surface.blit(self.syringe_pic_menu, (7*sprite_cote, 16*sprite_cote))
                 self.window_surface.blit(self.dropper_pic_menu, (8*sprite_cote, 16*sprite_cote))
@@ -197,14 +196,8 @@ class GameInterface():
                     self.window_surface.blit(self.heart_pic, (11*sprite_cote, 16*sprite_cote))
                     self.window_surface.blit(self.heart_pic, (13*sprite_cote, 16*sprite_cote))
                 
-                
-                if self.picked_item == 1:
-                    self.piked_sound.play()
-                              
-                if self.lost_life == 1:
-                    self.lost_life_sound.play()
 
-                
+                # Display image for each sprite
                 line_nbr = 0
                 for line in self.labyrinth:
                     column_nbr = 0
@@ -231,7 +224,6 @@ class GameInterface():
                                               
                         column_nbr += 1
                     line_nbr += 1
-                
                 self.window_surface.blit(self.player_pic, self.player_pos)
                 
                 for event in pygame.event.get():
@@ -247,6 +239,7 @@ class GameInterface():
                             if self.quit_game_rect.collidepoint(event.pos):
                                 run_game = 0
                     
+                    #request movement
                     elif event.type == KEYDOWN:
                         
                         if event.key == K_RIGHT:
@@ -258,11 +251,22 @@ class GameInterface():
                         if event.key == K_UP:
                             self.event.movement_request("UP")
 
+                # sound for item picked
+                if self.picked_item == 1:
+                    self.piked_sound.play()
+
+                # sound for life lost              
+                if self.health2 > self.health:
+                    self.health2 = self.health
+                    self.lost_life_sound.play()
+                    
+                # display and sound for 'win" or 'lost'
                 if self.end_game != "":
                     
                     self.window_surface.fill(black_color)
                     self.window_surface.blit(self.restart_button, [5, 456])
                     self.window_surface.blit(self.quit_button_game, [5, 490])
+
                     if self.end_game == "lost":
                         self.window_surface.blit(self.lost_pic, [0, 0])
                         self.lost_sound.play()
@@ -272,5 +276,3 @@ class GameInterface():
                         self.win_sound.play()
                         
                 pygame.display.flip()
-                            
-

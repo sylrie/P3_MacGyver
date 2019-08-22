@@ -1,12 +1,10 @@
 import pprint
 from random import randrange, choice
-#from game_display import *
 
-"""
+""" Create the structure of the labyrinth using the N1.txt file
 """
 
 class Labyrinth():
-
     """ Generate labyrinth using a file .txt
         Convert this file to a two-dimensional list
     """
@@ -90,11 +88,10 @@ class Game():
     def __init__(self):
         labyrinth = Create_game()
         self.labyrinth =labyrinth.labyrinth.labyrinth
-        self.Get_init_position()
-        self.player_movement()
-       
-    # Find player initial position
-    def Get_init_position (self):
+        self.get_init_position()
+             
+    # Find player initial position 'd'
+    def get_init_position (self):
         self.init_position = ()
         self.line_pos = 0
         self.column_pos = 0
@@ -112,59 +109,5 @@ class Game():
                     self.init_position = (self.line_pos, self.column_pos)
                     self.labyrinth[self.line_pos][self.column_pos] = "X"
                 count_line += 1
-
-    """def player_movement(self):
-        movement_request = ""
-        line_pos = self.line_pos
-        column_pos = self.column_pos
-        self.count_item = 3
-        run = 1
-        
-        while run == 1:
-            pprint.pprint(self.labyrinth)
-         
-            sprite_content = ""
-            movement_request = input("Choose direction ('r', 'l', 'u', 'd') or 'q' fo quit : ")
-
-            if movement_request == "q":
-                run = 0
-
-            #Define the request position and check if new position is still in labyrinth
-            if movement_request == "r" and column_pos <= 14:
-                column_pos += 1
-                sprite_content = self.labyrinth[line_pos][column_pos]  
-            elif movement_request == "l" and column_pos >= 1:
-                column_pos -= 1
-                sprite_content = self.labyrinth[line_pos][column_pos]
-            elif movement_request == "d" and line_pos <= 14:
-                line_pos += 1
-                sprite_content = self.labyrinth[line_pos][column_pos]
-            elif movement_request == "u" and line_pos >= 1:
-                line_pos -= 1
-                sprite_content = self.labyrinth[line_pos][column_pos]
-            
-            # if sprite is not a wall, change actual position into passage 'p' and change new player position 'X'
-            if sprite_content != "w":
-                self.labyrinth[self.line_pos][self.column_pos] = "p"
-                self.line_pos = line_pos
-                self.column_pos = column_pos
-                self.labyrinth[self.line_pos][self.column_pos] = "X"
-            
-            # if player is on an item posisition, change count of remaining item    
-            if sprite_content == "T" or sprite_content == "D" or sprite_content == "S":
-                self.count_item -= 1
-                print("you picked one item")
-            
-            # ifplayer is at the labyrinth's exit, check if it's a win,... or not
-            if sprite_content == "a" and self.count_item == 0:
-                print("!! YOU WIN !!")
-                run = 0
-            if sprite_content == "a" and self.count_item > 0:
-                print("!!YOU LOOOOOSE !!")
-                run = 0
-            # if sprite is a wall, cancel movement
-            else:
-                line_pos = self.line_pos
-                column_pos = self.column_pos
-                """
+ 
             

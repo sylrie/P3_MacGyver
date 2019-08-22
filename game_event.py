@@ -13,17 +13,17 @@ class Event_game():
         labyrinth = Create_game()
         self.labyrinth = labyrinth.labyrinth.labyrinth
 
-        self.line_pos = 0
-        self.column_pos = 0
-        self.player_pos = [0, 0]
+        init_position = Game()
+        self.line_pos = init_position.line_pos
+        self.column_pos = init_position.column_pos
+        self.player_pos = [self.column_pos, self.line_pos]
 
         self.end_game = ""
         self.health = 2
         self.items = ["tube", "syringe", "dropper"]
         self.picked_item = 0
         self.lost_life = 0
-        
-        
+            
 
     def movement_request(self, movement):
         
@@ -31,7 +31,7 @@ class Event_game():
         line_pos = self.line_pos 
         column_pos = self.column_pos
 
-
+        #calculate the next sprite with the movement request
         if self.movement == "RIGHT":
             if column_pos < 14:
                 column_pos += 1
@@ -47,13 +47,16 @@ class Event_game():
         elif self.movement == "UP":
             if line_pos > 0:
                 line_pos -= 1
-                
 
+                
+        # Manage events with sprite content
         sprite_content = self.labyrinth[line_pos][column_pos]
 
+        # if wall, cancel movement request
         if sprite_content == "w":
             line_pos = self.line_pos 
             column_pos = self.column_pos
+
 
         if sprite_content == "F":
             self.health -= 1
@@ -64,7 +67,7 @@ class Event_game():
             self.column_pos = column_pos
             self.player_pos = [0, 0]
             
-  
+        # if not a wall
         if sprite_content != "w":
             self.picked_item = 0
             self.lost_life = 0
@@ -85,8 +88,10 @@ class Event_game():
                 self.picked_item = 1
                 if self.health < 2:
                     self.health += 1
-                    
             
+  
+                    
+        # end of game
             if sprite_content == "a":
                 if len(self.items) == 0:
                     self.end_game = "win"
@@ -96,7 +101,7 @@ class Event_game():
             if self.health <= -1:
                 self.end_game = "lost"
 
-  
+        #change the player position
         self.labyrinth[self.line_pos][self.column_pos] = "p"
         self.line_pos = line_pos
         self.column_pos = column_pos
