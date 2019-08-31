@@ -1,11 +1,17 @@
+""" Manage events during the game
+"""
+
 import pygame
 from pygame import mixer
 
+
 class Events():
+    """ Manage events with sprite content and player position """
 
     def __init__(self):
         
         self.load_sounds()
+
 
     def load_sounds(self):
 
@@ -18,9 +24,13 @@ class Events():
         self.lost_life = pygame.mixer.Sound("resources/sounds/lost_life.ogg")
         
         self.win_sound = pygame.mixer.Sound("resources/sounds/win.wav")
+        self.lost_sound = pygame.mixer.Sound("resources/sounds/lost.wav")
+
+
 
     def actions(self, sprite, inventory, health, run):
-     
+        """ make actions with sprite content and player position """
+
         self.sprite_content= sprite
         self.inventory = inventory
         self.health = health
@@ -42,11 +52,13 @@ class Events():
             self.picked_sound.play()
             if self.health < 2:
                 self.health += 1
-
-        if self.sprite_content == "F":# Fire
+                
+        if self.sprite_content == "f":# Fire
             self.lost_life.play()
             self.health -=1
+            
             if self.health < 0:
+                self.lost_sound.play()
                 self.run = "lost"
                  
         if self.sprite_content == "a":# Arrival
@@ -54,6 +66,8 @@ class Events():
                 self.win_sound.play()
                 self.run = "win"
             else:
+                self.lost_sound.play()
                 self.run = "lost"
 
+        
         

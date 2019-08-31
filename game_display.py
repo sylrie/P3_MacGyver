@@ -3,6 +3,7 @@ from pygame.locals import *
 import player
 
 
+
 class Game():
 
     def __init__(self):
@@ -15,7 +16,7 @@ class Game():
         self.inventory = self.player.inventory
         self.health = self.player.health
         self.run = self.player.run
-        
+
         self.create_surface()
         self.load_images()
         self.create_rect()
@@ -39,6 +40,9 @@ class Game():
         self.wall_pic = pygame.image.load("resources/images/wall.png")
         # Passage
         self.pass_pic = pygame.image.load("resources/images/pass.png")
+
+        # Inventory
+        self.inventory_pic = pygame.image.load("resources/images/inventory.png").convert()
 
         # Syringe's images
         self.syringe_pic = pygame.image.load("resources/images/syringe.png").convert()
@@ -82,26 +86,27 @@ class Game():
         while self.run == "game":
             
             pygame.time.Clock().tick(30)
-
+            
             self.run = self.player.run
             self.health = self.player.health
 
             # Display buttons
             self.window_surface.blit(self.restart_button, [5, 456])
             self.window_surface.blit(self.quit_button_game, [5, 490])
-               
+              
             # Display life
             if self.health == 0:
                 self.window_surface.blit(self.heart_pic_menu, (13*self.sprite_cote, 16*self.sprite_cote))
-                self.window_surface.blit(self.heart_pic_menu, (11*self.sprite_cote, 16*self.sprite_cote))
+                self.window_surface.blit(self.heart_pic_menu, (12*self.sprite_cote, 16*self.sprite_cote))
             if self.health == 1:
                 self.window_surface.blit(self.heart_pic, (13*self.sprite_cote, 16*self.sprite_cote))
-                self.window_surface.blit(self.heart_pic_menu, (11*self.sprite_cote, 16*self.sprite_cote))
+                self.window_surface.blit(self.heart_pic_menu, (12*self.sprite_cote, 16*self.sprite_cote))
             if self.health == 2:
-                self.window_surface.blit(self.heart_pic, (11*self.sprite_cote, 16*self.sprite_cote))
+                self.window_surface.blit(self.heart_pic, (12*self.sprite_cote, 16*self.sprite_cote))
                 self.window_surface.blit(self.heart_pic, (13*self.sprite_cote, 16*self.sprite_cote))
             
             # Display inventory
+            self.window_surface.blit(self.inventory_pic, [205, 455]) 
             if "dropper" in self.inventory:
                 self.window_surface.blit(self.dropper_pic, (8*self.sprite_cote, 16*self.sprite_cote))
             if "syringe" in self.inventory:
@@ -122,7 +127,7 @@ class Game():
                         self.window_surface.blit(self.gardian_pic, [x, y])
                     if sprite == 'w':
                         self.window_surface.blit(self.wall_pic, [x, y])
-                    if sprite == "F":
+                    if sprite == "f":
                         self.window_surface.blit(self.fire_pic, [x, y])
                     if sprite == "H":
                         self.window_surface.blit(self.heart_pic, [x, y])
@@ -147,7 +152,7 @@ class Game():
                 elif event.type == MOUSEBUTTONDOWN:
                     if event.button == 1:
                         if self.restart_rect.collidepoint(event.pos):
-                            self.run_game = 0
+                            self.run = ""
                            
                         if self.quit_game_rect.collidepoint(event.pos):
                             quit()   
@@ -162,6 +167,7 @@ class Game():
                         self.player.movement_request("DOWN")
                     if event.key == K_UP:
                         self.player.movement_request("UP")
-        
+                       
             # Refresh pygame display
             pygame.display.flip()
+

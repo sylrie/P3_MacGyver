@@ -41,7 +41,7 @@ class End():
     def display(self):
         run_end = 1
         while run_end == 1:
-            self.run = self.event.run
+            
 
             pygame.time.Clock().tick(30)
             #self.win_sound.play()

@@ -29,8 +29,7 @@ class Home():
         self.info_pic = pygame.image.load("resources/images/info.png").convert()
 
         #loading sounds
-        self.music_sound = pygame.mixer.Sound("resources/sounds/music.ogg")
-        self.music_sound.set_volume(0.1)
+        
 
     def create_rect(self):
 
@@ -43,7 +42,7 @@ class Home():
         while self.run == "home":
 
             pygame.time.Clock().tick(30)
-            self.music_sound.play(3, 0, 2000)
+            
 
             self.window_surface.blit(self.home_pic, [0,0])
             self.window_surface.blit(self.info_button, [210, 65])
@@ -65,7 +64,7 @@ class Home():
 
                         if self.start_rect.collidepoint(event.pos): # run the game display
                             self.run = 0
-                            self.music_sound.fadeout(1000)
+                            
 
                         if self.info_rect.collidepoint(event.pos): # active show infos
                             self.display_infos = 1 

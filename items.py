@@ -1,15 +1,13 @@
 
-""" Create random positions for items and place them on the labyrinth
-    """
-
 from random import randrange, choice
-from labyrinth import *
 
 class Items():
+    """ Create random positions for items and place them on the labyrinth
+    """
     
-    def __init__(self):
-        labyrinth = Labyrinth()
-        self.labyrinth = labyrinth.labyrinth 
+    def __init__(self, labyrinth):
+       
+        self.labyrinth = labyrinth
              
         self.tube_position = ()
         self.syringe_position = ()

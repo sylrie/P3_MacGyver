@@ -1,8 +1,11 @@
 
-""" Create the structure of labyrinth
+""" Create the structure of full labyrinth
 """
+import items
 
 class Labyrinth():
+    """ Create the structure of full labyrinth 
+    """
 
     def __init__(self):
 
@@ -11,10 +14,11 @@ class Labyrinth():
 
         self.open_file_txt()
         self.create_labyrinth()
+        self.add_items()
 
     # Use file .txt for create labytinth_txt
     def open_file_txt(self):
-        with open("resources/levels/N1.txt", "r") as labyrinth_file:
+        with open("resources/levels/N2.txt", "r") as labyrinth_file:
             self.labyrinth_txt = labyrinth_file.read()
     
     # Create the two-dimensional list 'labyrinth' with labyrinth_txt
@@ -26,4 +30,6 @@ class Labyrinth():
                 laby_line.append(Game)
             self.labyrinth.append(laby_line)
     
-
+    # Add items with Class Items()
+    def add_items(self):
+        self.items = items.Items(self.labyrinth)
