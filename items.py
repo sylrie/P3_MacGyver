@@ -1,4 +1,7 @@
-
+""" items
+    Create random positions for items and place them on the labyrinth
+"""
+# library imports
 from random import randrange, choice
 
 class Items():
@@ -8,15 +11,13 @@ class Items():
     def __init__(self, labyrinth):
        
         self.labyrinth = labyrinth
-             
-        self.tube_position = ()
-        self.syringe_position = ()
-        self.dropper_position = ()
-        self.heart_position = ()
+        self.create_items()
+   
+    def random_position(self, item):
+        """ Create random positions for items
+        """
 
-        self.items_position()
-
-    def random_position(self):
+        item = item
         lines = len(self.labyrinth)-1
         random_line = randrange(lines)
         line = self.labyrinth[random_line]
@@ -28,21 +29,20 @@ class Items():
                 column.append(count)
             count += 1
         random_column = choice(column)
-        return (random_line, random_column)
+        self.labyrinth[random_line][random_column] = item
 
-    def items_position(self):
+    def create_items(self):
+        """ create items
+        """
         
-        # create Tube
-        self.tube_position = self.random_position()
-        self.labyrinth[self.tube_position[0]][self.tube_position[1]] = "T"
-        # Create Syringe
-        self.syringe_position = self.random_position()
-        self.labyrinth[self.syringe_position[0]][self.syringe_position[1]] = "S"
-        # Create Dropper
-        self.dropper_position =self.random_position()
-        self.labyrinth[self.dropper_position[0]][self.dropper_position[1]] = "D"
-        # Create Heart
-        self.heart_position =self.random_position()
-        self.labyrinth[self.heart_position[0]][self.heart_position[1]] = "H"
+        self.items_list = ("Dropper", "Syringe", "Tube", "Heart")
+        
+        self.items_dict = {}
+
+        for item in self.items_list:
+            self.items_dict[item[0]] = item # ex: {'D': 'Dropper'}
+            self.random_position(item[0]) # ex :use random position for 'D'
+
+
 
 

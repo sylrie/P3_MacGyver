@@ -1,14 +1,18 @@
 
-""" Create the structure of full labyrinth
+""" labyrinth
+    Create the structure of full labyrinth
 """
+
+# programs import
 import items
 
 class Labyrinth():
     """ Create the structure of full labyrinth 
     """
 
-    def __init__(self):
+    def __init__(self, level):
 
+        self.level = level
         self.labyrinth_txt = ""
         self.labyrinth = []
 
@@ -16,13 +20,17 @@ class Labyrinth():
         self.create_labyrinth()
         self.add_items()
 
-    # Use file .txt for create labytinth_txt
-    def open_file_txt(self):
-        with open("resources/levels/N2.txt", "r") as labyrinth_file:
-            self.labyrinth_txt = labyrinth_file.read()
     
-    # Create the two-dimensional list 'labyrinth' with labyrinth_txt
+    def open_file_txt(self):
+        """ Use file .txt for create labytinth_txt
+        """
+
+        with open("resources/levels/"+self.level+".txt", "r") as labyrinth_file:
+            self.labyrinth_txt = labyrinth_file.read()
+       
     def create_labyrinth(self):
+        """ Create the two-dimensional list 'labyrinth' with labyrinth_txt
+        """
         split_laby = self.labyrinth_txt.split("\n")
         for line in split_laby:
             laby_line = []
@@ -30,6 +38,9 @@ class Labyrinth():
                 laby_line.append(Game)
             self.labyrinth.append(laby_line)
     
-    # Add items with Class Items()
+    
     def add_items(self):
+        """ Add items with Class Items()
+        """
+        
         self.items = items.Items(self.labyrinth)

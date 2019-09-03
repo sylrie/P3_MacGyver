@@ -1,73 +1,60 @@
-""" Manage events during the game
+""" game events
+    Manage game events 
 """
-
+# library imports
 import pygame
-from pygame import mixer
-
 
 class Events():
     """ Manage events with sprite content and player position """
 
-    def __init__(self):
+    def __init__(self, player):
+
+        self.player = player
         
-        self.load_sounds()
+        self.loads()
 
-
-    def load_sounds(self):
+    def loads(self):
+        """ load resources
+        """
 
         pygame.mixer.init()
-
-        self.music_sound = pygame.mixer.Sound("resources/sounds/music.ogg")
-
-        self.picked_sound = pygame.mixer.Sound("resources/sounds/picked.wav")
-        
-        self.lost_life = pygame.mixer.Sound("resources/sounds/lost_life.ogg")
-        
+        self.picked_sound = pygame.mixer.Sound("resources/sounds/picked.wav")  
+        self.picked_sound.set_volume(0.2)
+        self.lost_life = pygame.mixer.Sound("resources/sounds/lost_life.wav")
+        self.lost_life.set_volume(0.3)
         self.win_sound = pygame.mixer.Sound("resources/sounds/win.wav")
+        self.win_sound.set_volume(0.2)
         self.lost_sound = pygame.mixer.Sound("resources/sounds/lost.wav")
-
-
-
-    def actions(self, sprite, inventory, health, run):
+        self.lost_sound.set_volume(0.2)
+        
+    def actions(self):
         """ make actions with sprite content and player position """
-
-        self.sprite_content= sprite
-        self.inventory = inventory
-        self.health = health
-        self.run = run
-       
-        if self.sprite_content == "T":
-            self.inventory.append("tube")
-            self.picked_sound.play()
-        
-        if self.sprite_content == "S":
-            self.inventory.append("syringe")
-            self.picked_sound.play()
-
-        if self.sprite_content == "D":
-            self.inventory.append("dropper")
-            self.picked_sound.play()
-        
-        if self.sprite_content == "H": # Health
-            self.picked_sound.play()
-            if self.health < 2:
-                self.health += 1
-                
-        if self.sprite_content == "f":# Fire
+               
+        if self.player.sprite == "e":# water
             self.lost_life.play()
-            self.health -=1
-            
-            if self.health < 0:
+            self.player.health -=1   
+            if self.player.health < 0:
                 self.lost_sound.play()
-                self.run = "lost"
+                self.player.run = "lost"
                  
-        if self.sprite_content == "a":# Arrival
-            if len(self.inventory) == 3:
+        elif self.player.sprite == "a":# Arrival
+            if len(self.player.inventory) == 3:
                 self.win_sound.play()
-                self.run = "win"
+                self.player.run = "win"
             else:
                 self.lost_sound.play()
-                self.run = "lost"
+                self.player.run = "lost"
+        
+        elif self.player.sprite == "H": # Health
+            self.picked_sound.play()
+            if self.player.health < 2:
+                self.player.health += 1
 
+        elif self.player.sprite == "p":
+            pass
+
+        else:
+            self.player.inventory.append(self.player.sprite)
+            self.picked_sound.play()
         
-        
+       
