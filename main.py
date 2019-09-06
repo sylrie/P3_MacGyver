@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 # -*- coding: Utf-8 -*
 
-from game import Game
+from frontend.game import Game
 
 def main():
 

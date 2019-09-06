@@ -16,6 +16,7 @@ class WinDisplay():
     def __init__(self):
 
         self.interface = ""
+        
         self.create_surface()
         self.loads()
         self.create_rect()
@@ -26,16 +27,16 @@ class WinDisplay():
         """
 
         pygame.display.init()
-        self.window_surface = pygame.display.set_mode((450, 520), pygame.noframe)
+        self.window_surface = pygame.display.set_mode((450, 520), pygame.NOFRAME)
 
     def loads(self):
         """ load resources
         """
 
         # Loading images
-        self.win_pic = pygame.image.load("resources/images/win.png").convert()
-        self.quit_button = pygame.image.load("resources/images/B_quitter.png").convert()
-        self.home_button = pygame.image.load("resources/images/B_home.png").convert()
+        self.win_pic = pygame.image.load("resources/images/win.png").convert_alpha()
+        self.quit_button = pygame.image.load("resources/images/B_quitter.png").convert_alpha()
+        self.home_button = pygame.image.load("resources/images/B_home.png").convert_alpha()
 
     def create_rect(self):
         """ Create rect surfaces
@@ -51,9 +52,6 @@ class WinDisplay():
         loop = 1
         while loop == 1:
 
-            pygame.time.Clock().tick(30)
-            #self.win_sound.play()
-            self.window_surface.fill((0, 0, 0))
             self.window_surface.blit(self.quit_button, [170, 400])
             self.window_surface.blit(self.home_button, [170, 450])
             self.window_surface.blit(self.win_pic, [0, 20])

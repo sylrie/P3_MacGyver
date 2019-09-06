@@ -17,9 +17,10 @@ class HomeDisplay():
 
         self.interface = "home"
         self.level = "level1"
-        
+        self.level_pic = None
         self.display_infos = False
         self.loop = True
+
         self.create_surface()
         self.loads()
         self.create_rect()
@@ -93,6 +94,7 @@ class HomeDisplay():
 
         self.level_pic = self.level1
         self.loop = True
+
         while self.loop:
 
             self.window_surface.blit(self.home_pic, [0, 45])

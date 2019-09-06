@@ -6,7 +6,7 @@
 # -*- coding: Utf-8 -*
 
 # programs import
-from game_events import Events
+from backend.game_events import Events
 
 class Player():
     """ Create a player and manage palyer attribut
@@ -44,7 +44,7 @@ class Player():
 
                 if position in line:
                     self.line_pos = count_line
-                    column_pos = self.labyrinth[self.line_pos].index(position)
+                    self.column_pos = self.labyrinth[self.line_pos].index(position)
                     search = 0
                     self.player_position = (self.column_pos, self.line_pos)
 

@@ -12,8 +12,8 @@
 import pygame
 
 # programs import
-from labyrinth import Labyrinth
-from player import Player
+from backend.labyrinth import Labyrinth
+from backend.player import Player
 
 class LabyDisplay():
     """ Display laby interface
@@ -63,13 +63,12 @@ class LabyDisplay():
 
         # Gardian
         self.gardian = pygame.image.load("resources/images/gardian.png").convert_alpha()
-
         # Wall
         self.wall_pic = pygame.image.load("resources/images/wall.png").convert()
         # Passage
-        self.path_pic = pygame.image.load("resources/images/grass.png").convert()
+        self.path_pic = pygame.image.load("resources/images/grass2.png").convert()
         # water
-        self.water_pic = pygame.image.load("resources/images/water.png").convert()
+        self.water_pic = pygame.image.load("resources/images/background.png").convert()
 
         # Inventory
         self.inventory_pic = pygame.image.load("resources/images/inventory2.png")
@@ -103,7 +102,7 @@ class LabyDisplay():
     def display_labyrinth(self):
         """ display labyrinth images
         """
-
+        self.window_surface.blit(self.water_pic, [0, 0])
         line_nbr = 0
         for line in self.labyrinth:
             column_nbr = 0
@@ -112,12 +111,13 @@ class LabyDisplay():
                 column = column_nbr * self.sprite_cote
                 line = line_nbr * self.sprite_cote
 
-                if sprite != "w":
+                if sprite != "w" and sprite != "e":
                     self.window_surface.blit(self.path_pic, [column, line])
+                
                 if sprite == 'w':
                     self.window_surface.blit(self.wall_pic, [column, line])
-                elif sprite == "e":
-                    self.window_surface.blit(self.water_pic, [column, line])
+                #elif sprite == "e":
+                    #self.window_surface.blit(self.water_pic, [column, line])
                 elif sprite == "a":
                     self.window_surface.blit(self.gardian, [column, line])
                 elif sprite == 'A':
@@ -128,7 +128,8 @@ class LabyDisplay():
                     self.window_surface.blit(self.dagger, [column, line])
                 elif sprite == "L":
                     self.window_surface.blit(self.life, [column, line])
-
+                else:
+                    pass
                 column_nbr += 1
 
             line_nbr += 1
@@ -142,13 +143,10 @@ class LabyDisplay():
 
         # Display life
         if self.player.health == 0:
-
             self.window_surface.blit(self.life1, (440, 615))
         elif self.player.health == 1:
-
             self.window_surface.blit(self.life2, (440, 615))
         elif self.player.health == 2:
-
             self.window_surface.blit(self.life3, (440, 615))
 
         # Display inventory

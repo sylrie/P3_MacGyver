@@ -9,24 +9,26 @@
 import pygame
 
 # programs import
-from home_display import HomeDisplay
-from laby_display import LabyDisplay
-from win_display import WinDisplay
-from lost_display import LostDisplay
+from frontend.interfaces.home_display import HomeDisplay
+from frontend.interfaces.laby_display import LabyDisplay
+from frontend.interfaces.win_display import WinDisplay
+from frontend.interfaces.lost_display import LostDisplay
 
 class Game():
-    """ Manage the game
+    """ Manage interface display
     """
 
     def __init__(self):
 
         self.interface = "home"
+        self.active_interface = None
         self.quit = False
+
         self.load_musics()
         self.display_interface()
 
     def load_musics(self):
-        """ load musics
+        """ load musics needed
         """
 
         pygame.mixer.init()
@@ -44,30 +46,27 @@ class Game():
         self.lost_music.set_volume(0.4)
 
     def display_interface(self):
-        """ Display the game
+        """ Display needed interface
         """
 
         while not self.quit:
 
             if self.interface == "home":
 
-                # play music
-                self.home_music.play(3, 0, 500) # play home music
+                self.home_music.play(3, 0, 500)
 
-                # display home
-                self.home_interface = HomeDisplay()
-                self.interface = self.home_interface.interface
-                level = self.home_interface.level
+                self.active_interface = HomeDisplay()
+                self.interface = self.active_interface.interface
+                level = self.active_interface.level
 
-                # stop music
                 self.home_music.fadeout(500)
 
             elif self.interface == "laby":
 
                 self.laby_sound.play(3, 0, 500)
 
-                self.laby_interface = LabyDisplay(level)
-                self.interface = self.laby_interface.interface
+                self.active_interface = LabyDisplay(level)
+                self.interface = self.active_interface.interface
 
                 self.laby_sound.fadeout(500)
 
@@ -75,8 +74,8 @@ class Game():
 
                 self.win_music.play(3, 0, 3000)
 
-                self.win_interface = WinDisplay()
-                self.interface = self.win_interface.interface
+                self.active_interface = WinDisplay()
+                self.interface = self.active_interface.interface
 
                 self.win_music.fadeout(500)
 
@@ -84,7 +83,7 @@ class Game():
 
                 self.lost_music.play(3, 0, 3000)
 
-                self.win_interface = LostDisplay()
-                self.interface = self.win_interface.interface
+                self.active_interface = LostDisplay()
+                self.interface = self.active_interface.interface
 
                 self.lost_music.fadeout(500)
