@@ -12,16 +12,15 @@
 import pygame
 
 # programs import
-from backend.labyrinth import Labyrinth
+from backend.labyrinth import GenerateLabyrinth
 from backend.player import Player
 
 class LabyDisplay():
     """ Display laby interface
     """
 
-    def __init__(self, level):
+    def __init__(self):
 
-        self.level = level
         self.sprite_cote = 40
         self.active_interface = "game"
 
@@ -36,7 +35,7 @@ class LabyDisplay():
         """ Generate labyrinth and load player values
         """
 
-        self.lab = Labyrinth(self.level)
+        self.lab = GenerateLabyrinth()
         self.labyrinth = self.lab.labyrinth
 
         self.player = Player(self.labyrinth)

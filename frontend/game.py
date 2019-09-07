@@ -57,7 +57,6 @@ class Game():
 
                 self.active_interface = HomeDisplay()
                 self.interface = self.active_interface.interface
-                level = self.active_interface.level
 
                 self.home_music.fadeout(500)
 
@@ -65,7 +64,7 @@ class Game():
 
                 self.laby_sound.play(3, 0, 500)
 
-                self.active_interface = LabyDisplay(level)
+                self.active_interface = LabyDisplay()
                 self.interface = self.active_interface.interface
 
                 self.laby_sound.fadeout(500)

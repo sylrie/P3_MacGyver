@@ -16,8 +16,6 @@ class HomeDisplay():
     def __init__(self):
 
         self.interface = "home"
-        self.level = "level1"
-        self.level_pic = None
         self.display_infos = False
         self.loop = True
 
@@ -45,9 +43,6 @@ class HomeDisplay():
         self.start_button = pygame.image.load("resources/images/B_start.png").convert()
         self.quit_button = pygame.image.load("resources/images/B_quitter.png").convert()
 
-        self.level1 = pygame.image.load("resources/images/level1.png").convert()
-        self.level2 = pygame.image.load("resources/images/level2.png").convert()
-
     def create_rect(self):
         """ Create rect surfaces
         """
@@ -55,7 +50,6 @@ class HomeDisplay():
         self.start_rect = pygame.Rect((345, 15), (100, 30))
         self.quit_rect = pygame.Rect((5, 15), (100, 30))
         self.info_rect = pygame.Rect((200, 15), (50, 30))
-        self.level_rect = pygame.Rect((75, 475), (300, 30))
 
     def pygame_event(self):
         """ manage pygame event
@@ -80,28 +74,17 @@ class HomeDisplay():
                         else:
                             self.display_infos = True
 
-                    elif self.level_rect.collidepoint(event.pos):
-                        if self.level == "level1":
-                            self.level = "level2"
-                            self.level_pic = self.level2
-                        else:
-                            self.level = "level1"
-                            self.level_pic = self.level1
-
     def display(self):
         """ Display home iterface
         """
 
-        self.level_pic = self.level1
         self.loop = True
-
         while self.loop:
 
             self.window_surface.blit(self.home_pic, [0, 45])
             self.window_surface.blit(self.info_button, [200, 15])
             self.window_surface.blit(self.start_button, [345, 15])
             self.window_surface.blit(self.quit_button, [5, 15])
-            self.window_surface.blit(self.level_pic, [75, 475])
 
             if self.display_infos:
                 self.window_surface.blit(self.info_pic, [35, 80])

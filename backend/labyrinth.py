@@ -9,14 +9,13 @@
 # library import
 from random import randrange, choice
 
-class Labyrinth():
-    """ Create the structure of full labyrinth with a file level.txt
+class GenerateLabyrinth():
+    """ Create the structure of full labyrinth with a file .txt
         add items at random position on the labyrinth
     """
 
-    def __init__(self, level):
+    def __init__(self):
 
-        self.level = level
         self.labyrinth_txt = ""
         self.labyrinth = []
 
@@ -28,7 +27,7 @@ class Labyrinth():
         """ Use file .txt for create labytinth_txt
         """
 
-        with open("resources/levels/"+self.level+".txt", "r") as labyrinth_file:
+        with open("resources/levels/level1.txt", "r") as labyrinth_file:
             self.labyrinth_txt = labyrinth_file.read()
 
     def create_labyrinth(self):
@@ -55,6 +54,8 @@ class Labyrinth():
         for sprite in line:
             if sprite == "p":
                 column.append(count)
+            else:
+                pass
             count += 1
         random_column = choice(column)
 
