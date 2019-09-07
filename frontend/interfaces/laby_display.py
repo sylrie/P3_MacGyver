@@ -47,7 +47,12 @@ class LabyDisplay():
         """
 
         pygame.init()
+
+        icone = pygame.image.load("resources/images/icon.png")
+        pygame.display.set_icon(icone)
+
         pygame.display.set_caption("MacGyver Labyrinth")
+
         self.window_surface = pygame.display.set_mode((600, 680))
 
     def loads(self):
@@ -65,9 +70,9 @@ class LabyDisplay():
         # Wall
         self.wall_pic = pygame.image.load("resources/images/wall.png").convert()
         # Passage
-        self.path_pic = pygame.image.load("resources/images/grass2.png").convert()
-        # water
-        self.water_pic = pygame.image.load("resources/images/background.png").convert()
+        self.path_pic = pygame.image.load("resources/images/wood4.png").convert()
+        # fire
+        self.fire_pic = pygame.image.load("resources/images/golem3.png").convert_alpha()
 
         # Inventory
         self.inventory_pic = pygame.image.load("resources/images/inventory2.png")
@@ -101,7 +106,7 @@ class LabyDisplay():
     def display_labyrinth(self):
         """ display labyrinth images
         """
-        self.window_surface.blit(self.water_pic, [0, 0])
+
         line_nbr = 0
         for line in self.labyrinth:
             column_nbr = 0
@@ -110,20 +115,20 @@ class LabyDisplay():
                 column = column_nbr * self.sprite_cote
                 line = line_nbr * self.sprite_cote
 
-                if sprite != "w" and sprite != "e":
+                if sprite != "w":
                     self.window_surface.blit(self.path_pic, [column, line])
                 
                 if sprite == 'w':
                     self.window_surface.blit(self.wall_pic, [column, line])
-                #elif sprite == "e":
-                    #self.window_surface.blit(self.water_pic, [column, line])
+                elif sprite == "f":
+                    self.window_surface.blit(self.fire_pic, [column, line])
                 elif sprite == "a":
                     self.window_surface.blit(self.gardian, [column, line])
                 elif sprite == 'A':
                     self.window_surface.blit(self.armor, [column, line])
                 elif sprite == 'H':
                     self.window_surface.blit(self.helmet, [column, line])
-                elif sprite == 'D':
+                elif sprite == 'S':
                     self.window_surface.blit(self.dagger, [column, line])
                 elif sprite == "L":
                     self.window_surface.blit(self.life, [column, line])
@@ -158,7 +163,7 @@ class LabyDisplay():
             self.window_surface.blit(self.helmet, (6*self.sprite_cote, 620))
         else:
             self.window_surface.blit(self.helmet_menu, (6*self.sprite_cote, 620))
-        if "D" in self.player.inventory:
+        if "S" in self.player.inventory:
             self.window_surface.blit(self.dagger, (4*self.sprite_cote, 620))
         else:
             self.window_surface.blit(self.dagger_menu, (4*self.sprite_cote, 620))
