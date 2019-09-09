@@ -6,7 +6,7 @@
 # -*- coding: Utf-8 -*
 
 #lybrary import
-import pygame
+from pygame import mixer
 
 # programs import
 
@@ -20,8 +20,8 @@ class Game():
     def __init__(self):
 
         self.interface = "home"
-        self.active_interface = None
-        self.end_music = None
+        self.active_interface = ""
+        self.music = ""
         self.quit = False
 
         self.display_interface()
@@ -30,10 +30,10 @@ class Game():
         """ load musics needed
         """
 
-        pygame.mixer.init()
+        mixer.init()
         path = "resources/sounds/" + self.interface +"_music.ogg"
 
-        self.music = pygame.mixer.Sound(path)
+        self.music =mixer.Sound(path)
         self.music.set_volume(0.4)
 
     def display_interface(self):
@@ -57,6 +57,6 @@ class Game():
                 self.music.play(3, 0, 0)
 
                 self.active_interface = SecondaryDisplay(self.interface)
-                self.interface = self.active_interface.run_interface
+                self.interface = self.active_interface.active_interface
 
                 self.music.fadeout(500)

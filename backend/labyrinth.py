@@ -1,6 +1,11 @@
 
 """ labyrinth
-    Create the structure of full labyrinth
+    Create the full structure of the labyrinth
+
+    w = wall    p = path    f = golem
+
+    items:
+    A = Armor   H = Helmet  S = Sword   L = Life
 """
 
 #!/usr/bin/python3
@@ -54,15 +59,14 @@ class GenerateLabyrinth():
         for sprite in line:
             if sprite == "p":
                 column.append(count)
-            
+
             count += 1
+
         if len(column) > 0:
             random_column = choice(column)
             self.labyrinth[random_line][random_column] = item
         else:
             self.random_position(item)
-
-        
 
     def create_items(self):
         """ create items

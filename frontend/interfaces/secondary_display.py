@@ -17,12 +17,12 @@ class SecondaryDisplay():
 
     def __init__(self, interface):
 
-        self.run_interface = interface
+        self.active_interface = interface
         self.loop = True
         self.display_infos = False
 
         self.create_surface()
-        self.loads()
+        self.load_images()
         self.create_rect()
         self.display()
 
@@ -38,19 +38,19 @@ class SecondaryDisplay():
         pygame.display.set_caption("MacGyver Labyrinth")
         self.window_surface = pygame.display.set_mode((450, 520))
 
-    def loads(self):
+    def load_images(self):
         """ load resources
         """
 
-        # Loading images
-        if self.run_interface == "lost":
+        if self.active_interface == "lost":
             self.interface_pic = pygame.image.load("resources/images/lost.png").convert()
-        elif self.run_interface == "win":
+
+        elif self.active_interface == "win":
             self.interface_pic = pygame.image.load("resources/images/win.png").convert()
+
         else:
             self.interface_pic = pygame.image.load("resources/images/home.png").convert()
             self.info_pic = pygame.image.load("resources/images/info.png").convert()
-
 
     def create_rect(self):
         """ Create rect surfaces
@@ -58,56 +58,57 @@ class SecondaryDisplay():
 
         self.quit_rect = pygame.Rect((175, 450), (100, 30))
 
-        if self.run_interface == "home":
-            self.start_rect = pygame.Rect((175,400), (100, 30))
-            self.info_rect = pygame.Rect((200,80), (50, 30))
-            
+        if self.active_interface == "home":
+            self.start_rect = pygame.Rect((175, 400), (100, 30))
+            self.info_rect = pygame.Rect((200, 80), (50, 30))
+
         else:
             self.home_rect = pygame.Rect((175, 400), (100, 30))
             self.start_restart_rect = pygame.Rect((175, 350), (100, 30))
-    
+
     def pygame_event_home(self):
         """ Manage Home pygame event"""
 
         for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    quit()
-                elif event.type == pygame.MOUSEBUTTONDOWN:
-                    if event.button == 1:
 
-                        if self.start_rect.collidepoint(event.pos):
-                            self.run_interface = "laby"
-                            self.loop = False
+            if event.type == pygame.QUIT:
+                quit()
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                if event.button == 1:
 
-                        elif self.quit_rect.collidepoint(event.pos):
-                            quit()
+                    if self.start_rect.collidepoint(event.pos):
+                        self.active_interface = "laby"
+                        self.loop = False
 
-                        elif self.info_rect.collidepoint(event.pos):
-                            if self.display_infos:
-                                self.display_infos = False
-                            else:
-                                self.display_infos = True
+                    elif self.quit_rect.collidepoint(event.pos):
+                        quit()
+
+                    elif self.info_rect.collidepoint(event.pos):
+                        if self.display_infos:
+                            self.display_infos = False
+                        else:
+                            self.display_infos = True
 
     def pygame_event(self):
         """ Manage Win and Lost pygame event"""
 
         for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    quit()
+            if event.type == pygame.QUIT:
+                quit()
 
-                elif event.type == pygame.MOUSEBUTTONDOWN:
-                    if event.button == 1:
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                if event.button == 1:
 
-                        if self.home_rect.collidepoint(event.pos):
-                            self.run_interface = "home"
-                            self.loop = False
+                    if self.home_rect.collidepoint(event.pos):
+                        self.active_interface = "home"
+                        self.loop = False
 
-                        if self.start_restart_rect.collidepoint(event.pos):
-                            self.run_interface = "laby"
-                            self.loop = False
-  
-                        if self.quit_rect.collidepoint(event.pos):
-                            quit()
+                    if self.start_restart_rect.collidepoint(event.pos):
+                        self.active_interface = "laby"
+                        self.loop = False
+
+                    if self.quit_rect.collidepoint(event.pos):
+                        quit()
 
     def display(self):
         """ Display lost iterface
@@ -122,7 +123,7 @@ class SecondaryDisplay():
             if self.display_infos:
                 self.window_surface.blit(self.info_pic, [35, 130])
 
-            if not self.run_interface == "home":
+            if not self.active_interface == "home":
                 self.pygame_event()
             else:
                 self.pygame_event_home()

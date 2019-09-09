@@ -15,9 +15,9 @@ class Events():
 
         self.player = player
 
-        self.loads()
+        self.load_sounds()
 
-    def loads(self):
+    def load_sounds(self):
         """ load sounds
         """
 

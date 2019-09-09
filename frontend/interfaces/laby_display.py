@@ -23,11 +23,11 @@ class LabyDisplay():
 
         self.sprite_cote = 40
         self.active_interface = "game"
-
         self.player_pic = None
+
         self.init_game()
         self.create_surface()
-        self.loads()
+        self.load_images()
         self.create_rect()
         self.display()
 
@@ -55,46 +55,49 @@ class LabyDisplay():
 
         self.window_surface = pygame.display.set_mode((600, 680))
 
-    def loads(self):
+    def load_images(self):
         """ load resources
         """
 
         # Player
-        self.playerdown = pygame.image.load("resources/images/playerdown.png").convert_alpha()
-        self.playerup = pygame.image.load("resources/images/playerup.png").convert_alpha()
-        self.playerright = pygame.image.load("resources/images/playerright.png").convert_alpha()
-        self.playerleft = pygame.image.load("resources/images/playerleft.png").convert_alpha()
-
-        # Gardian
-        self.gardian = pygame.image.load("resources/images/gardian.png").convert_alpha()
-        # Wall
-        self.wall_pic = pygame.image.load("resources/images/wall.png").convert()
-        # Passage
-        self.path_pic = pygame.image.load("resources/images/wood4.png").convert()
-        # fire
-        self.fire_pic = pygame.image.load("resources/images/golem3.png").convert_alpha()
+        player = "resources/images/player/"
+        self.playerdown = pygame.image.load(player + "playerdown.png").convert_alpha()
+        self.playerup = pygame.image.load(player + "playerup.png").convert_alpha()
+        self.playerright = pygame.image.load(player + "playerright.png").convert_alpha()
+        self.playerleft = pygame.image.load(player + "playerleft.png").convert_alpha()
 
         # Inventory
-        self.inventory_pic = pygame.image.load("resources/images/inventory2.png")
+        inventory = "resources/images/inventory/"
+        self.inventory_pic = pygame.image.load(inventory + "inventory.png")
 
-        self.armor = pygame.image.load("resources/images/armor.png").convert_alpha()
-        self.armor_menu = pygame.image.load("resources/images/armor2.png").convert_alpha()
+        self.armor = pygame.image.load(inventory + "armor.png").convert_alpha()
+        self.armor_menu = pygame.image.load(inventory + "armor2.png").convert_alpha()
 
-        self.helmet = pygame.image.load("resources/images/helmet.png").convert_alpha()
-        self.helmet_menu = pygame.image.load("resources/images/helmet2.png").convert_alpha()
+        self.helmet = pygame.image.load(inventory + "helmet.png").convert_alpha()
+        self.helmet_menu = pygame.image.load(inventory + "helmet2.png").convert_alpha()
 
-        self.dagger = pygame.image.load("resources/images/dagger.png").convert_alpha()
-        self.dagger_menu = pygame.image.load("resources/images/dagger2.png").convert_alpha()
+        self.dagger = pygame.image.load(inventory + "dagger.png").convert_alpha()
+        self.dagger_menu = pygame.image.load(inventory + "dagger2.png").convert_alpha()
 
         # life images
-        self.life = pygame.image.load("resources/images/life.png").convert_alpha()
-        self.life1 = pygame.image.load("resources/images/life1.png").convert_alpha()
-        self.life2 = pygame.image.load("resources/images/life2.png").convert_alpha()
-        self.life3 = pygame.image.load("resources/images/life3.png").convert_alpha()
+        self.life = pygame.image.load(inventory + "life.png").convert_alpha()
+        self.life1 = pygame.image.load(inventory + "life1.png").convert_alpha()
+        self.life2 = pygame.image.load(inventory + "life2.png").convert_alpha()
+        self.life3 = pygame.image.load(inventory + "life3.png").convert_alpha()
+
+        labyrinth = "resources/images/labyrinth/"
+        # Gardian
+        self.gardian = pygame.image.load(labyrinth + "gardian.png").convert_alpha()
+        # Wall
+        self.wall_pic = pygame.image.load(labyrinth + "wall.png").convert()
+        # Passage
+        self.path_pic = pygame.image.load(labyrinth + "wood.png").convert()
+        # fire
+        self.golem_pic = pygame.image.load(labyrinth + "golem.png").convert_alpha()
 
         # buttons
-        self.restart_button = pygame.image.load("resources/images/B_restart.png")
-        self.home_button = pygame.image.load("resources/images/B_home.png")
+        self.restart_button = pygame.image.load(labyrinth + "B_restart.png")
+        self.home_button = pygame.image.load(labyrinth + "B_home.png")
 
     def create_rect(self):
         """ Create rect
@@ -117,11 +120,11 @@ class LabyDisplay():
 
                 if sprite != "w":
                     self.window_surface.blit(self.path_pic, [column, line])
-                
+
                 if sprite == 'w':
                     self.window_surface.blit(self.wall_pic, [column, line])
                 elif sprite == "f":
-                    self.window_surface.blit(self.fire_pic, [column, line])
+                    self.window_surface.blit(self.golem_pic, [column, line])
                 elif sprite == "a":
                     self.window_surface.blit(self.gardian, [column, line])
                 elif sprite == 'A':

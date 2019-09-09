@@ -91,11 +91,10 @@ class Player():
             # run method 'action' of class Events
             self.actions.actions()
 
-            if self.sprite == "f" and not "S" in self.inventory:
+            if self.sprite == "f" and "S" not in self.inventory:
 
                 self.get_init_position()
-                
-                
+
             # modify sprite content of actual position
             else:
                 self.labyrinth[line_pos][column_pos] = "p"
