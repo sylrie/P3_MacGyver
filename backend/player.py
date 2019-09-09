@@ -19,6 +19,8 @@ class Player():
         self.line_pos = None
         self.column_pos = None
         self.player_position = ()
+        self.movement = ""
+        self.sprite = ()
 
         # From Class Events()
         self.actions = Events(self)

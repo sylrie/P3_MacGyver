@@ -6,6 +6,7 @@
 # -*- coding: Utf-8 -*
 
 # library import
+import time
 from pygame import mixer
 
 class Events():
@@ -29,12 +30,16 @@ class Events():
         self.lost_life.set_volume(0.4)
 
         self.kill_golem = mixer.Sound("resources/sounds/kill_golem.wav")
-        self.kill_golem.set_volume(0.2)
+        self.kill_golem.set_volume(0.7)
+
+        self.sword_sound = mixer.Sound("resources/sounds/sword.wav")
 
     def actions(self):
         """ make actions with sprite content and player position """
 
         if self.player.sprite == "f":
+            self.sword_sound.play(1)
+            time.sleep(1)
             if not "S" in self.player.inventory:
                 self.lost_life.play()
                 self.player.health -= 1
@@ -44,6 +49,8 @@ class Events():
                 self.kill_golem.play()
 
         elif self.player.sprite == "a":# Arrival
+            self.sword_sound.play(1)
+            time.sleep(1)
             if len(self.player.inventory) == 3:
                 self.player.run = "win"
             else:

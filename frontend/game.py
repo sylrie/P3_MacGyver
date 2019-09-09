@@ -33,7 +33,7 @@ class Game():
         mixer.init()
         path = "resources/sounds/" + self.interface +"_music.ogg"
 
-        self.music =mixer.Sound(path)
+        self.music = mixer.Sound(path)
         self.music.set_volume(0.4)
 
     def display_interface(self):
