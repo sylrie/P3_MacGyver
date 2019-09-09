@@ -56,17 +56,15 @@ class GenerateLabyrinth():
         count = 0
         column = []
 
-        for sprite in line:
-            if sprite == "p":
-                column.append(count)
+        while column == []:
+            for sprite in line:
+                if sprite == "p":
+                    column.append(count)
 
-            count += 1
+                count += 1
 
-        if len(column) > 0:
-            random_column = choice(column)
-            self.labyrinth[random_line][random_column] = item
-        else:
-            self.random_position(item)
+        random_column = choice(column)
+        self.labyrinth[random_line][random_column] = item
 
     def create_items(self):
         """ create items
