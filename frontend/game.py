@@ -20,7 +20,7 @@ class Game():
     def __init__(self):
 
         self.interface = "home"
-        self.active_interface = ""
+        self.active_interface = None
         self.music = ""
         self.quit = False
 

@@ -6,7 +6,7 @@
 # -*- coding: Utf-8 -*
 
 # programs import
-from backend.game_events import Events
+from backend.game_events import GameEvents
 
 class Player():
     """ Create a player and manage palyer attribut
@@ -23,7 +23,7 @@ class Player():
         self.sprite = ()
 
         # From Class Events()
-        self.actions = Events(self)
+        self.actions = GameEvents(self)
 
         self.inventory = []
         self.health = 2
@@ -82,7 +82,7 @@ class Player():
 
     def move(self, line_pos, column_pos):
         """ check the next sprite before change player position
-        run method 'actions' from Class Events
+            run method 'actions' from Class Events
         """
 
         self.sprite = self.labyrinth[line_pos][column_pos]

@@ -9,7 +9,7 @@
 import time
 from pygame import mixer
 
-class Events():
+class GameEvents():
     """ Manage events with sprite content and player position """
 
     def __init__(self, player):
@@ -37,7 +37,7 @@ class Events():
     def actions(self):
         """ make actions with sprite content and player position """
 
-        if self.player.sprite == "f":
+        if self.player.sprite == "f": # Golem
             self.sword_sound.play(1)
             time.sleep(1)
             if not "S" in self.player.inventory:
@@ -56,7 +56,7 @@ class Events():
             else:
                 self.player.run = "lost"
 
-        elif self.player.sprite == "L": # Health
+        elif self.player.sprite == "L": # Life
             self.picked_sound.play()
             if self.player.health < 2:
                 self.player.health += 1
