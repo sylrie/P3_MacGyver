@@ -10,7 +10,7 @@ from pygame import mixer
 
 # programs import
 
-from frontend.interfaces.laby_display import LabyDisplay
+from frontend.interfaces.maze_display import MazeDisplay
 from frontend.interfaces.secondary_display import SecondaryDisplay
 
 class Game():
@@ -44,11 +44,11 @@ class Game():
 
             self.load_music()
 
-            if self.interface == "laby":
+            if self.interface == "maze":
 
                 self.music.play(3, 0, 500)
 
-                self.active_interface = LabyDisplay()
+                self.active_interface = MazeDisplay()
                 self.interface = self.active_interface.interface
 
                 self.music.fadeout(500)

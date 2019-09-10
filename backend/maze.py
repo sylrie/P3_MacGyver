@@ -1,6 +1,6 @@
 
-""" labyrinth
-    Create the full structure of the labyrinth
+""" maze
+    Create the full structure of the maze
 
     w = wall    p = path    f = golem
 
@@ -14,45 +14,45 @@
 # library import
 from random import randrange, choice
 
-class GenerateLabyrinth():
-    """ Create the structure of full labyrinth with a file .txt
-        add items at random position on the labyrinth
+class Maze():
+    """ Create the structure of full maze with a file.txt
+        add items at random position on the maze
     """
 
     def __init__(self):
 
-        self.labyrinth_txt = ""
-        self.labyrinth = []
+        self.maze_txt = ""
+        self.maze = []
 
         self.open_file_txt()
         self.create_labyrinth()
         self.create_items()
 
     def open_file_txt(self):
-        """ Use file .txt for create labytinth_txt
+        """ Use file .txt for create maze_txt
         """
 
-        with open("resources/levels/level1.txt", "r") as labyrinth_file:
-            self.labyrinth_txt = labyrinth_file.read()
+        with open("resources/levels/level1.txt", "r") as level_file:
+            self.maze_txt = level_file.read()
 
     def create_labyrinth(self):
-        """ Create the two-dimensional list 'labyrinth' with labyrinth_txt
+        """ Create the two-dimensional list 'maze' with maze_txt
         """
-        split_laby = self.labyrinth_txt.split("\n")
+        split_laby = self.maze_txt.split("\n")
         for line in split_laby:
             laby_line = []
             for game in line:
                 laby_line.append(game)
-            self.labyrinth.append(laby_line)
+            self.maze.append(laby_line)
 
     def random_position(self, item):
         """ Chose a random positions for item
         """
 
         item = item
-        lines = len(self.labyrinth)-1
+        lines = len(self.maze)-1
         random_line = randrange(lines)
-        line = self.labyrinth[random_line]
+        line = self.maze[random_line]
         count = 0
         column = []
 
@@ -64,7 +64,7 @@ class GenerateLabyrinth():
                 count += 1
 
         random_column = choice(column)
-        self.labyrinth[random_line][random_column] = item
+        self.maze[random_line][random_column] = item
 
     def create_items(self):
         """ create items

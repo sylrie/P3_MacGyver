@@ -35,7 +35,7 @@ class SecondaryDisplay():
         icone = pygame.image.load("resources/images/icon.png")
         pygame.display.set_icon(icone)
 
-        pygame.display.set_caption("MacGyver Labyrinth")
+        pygame.display.set_caption("MacGyver - Maze")
         self.window_surface = pygame.display.set_mode((450, 520))
 
     def load_images(self):
@@ -77,7 +77,7 @@ class SecondaryDisplay():
                 if event.button == 1:
 
                     if self.start_rect.collidepoint(event.pos):
-                        self.active_interface = "laby"
+                        self.active_interface = "maze"
                         self.loop = False
 
                     elif self.quit_rect.collidepoint(event.pos):
@@ -104,7 +104,7 @@ class SecondaryDisplay():
                         self.loop = False
 
                     if self.start_restart_rect.collidepoint(event.pos):
-                        self.active_interface = "laby"
+                        self.active_interface = "maze"
                         self.loop = False
 
                     if self.quit_rect.collidepoint(event.pos):

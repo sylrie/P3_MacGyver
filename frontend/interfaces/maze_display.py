@@ -12,10 +12,10 @@
 import pygame
 
 # programs import
-from backend.labyrinth import GenerateLabyrinth
+from backend.maze import Maze
 from backend.player import Player
 
-class LabyDisplay():
+class MazeDisplay():
     """ Display laby interface
     """
 
@@ -32,15 +32,15 @@ class LabyDisplay():
         self.display()
 
     def init_game(self):
-        """ Generate labyrinth and load player values
+        """ Generate maze and load player values
         """
 
-        self.lab = GenerateLabyrinth()
-        self.labyrinth = self.lab.labyrinth
+        self.lab = Maze()
+        self.maze = self.lab.maze
 
-        self.player = Player(self.labyrinth)
-        self.labyrinth = self.player.labyrinth
-        self.run = self.player.run
+        self.player = Player(self.maze)
+        self.maze = self.player.maze
+        self.game_status = self.player.game_status
 
     def create_surface(self):
         """ Create pygame surface
@@ -51,7 +51,7 @@ class LabyDisplay():
         icone = pygame.image.load("resources/images/icon.png")
         pygame.display.set_icon(icone)
 
-        pygame.display.set_caption("MacGyver Labyrinth")
+        pygame.display.set_caption("MacGyver - Maze - Level 1")
 
         self.window_surface = pygame.display.set_mode((600, 680))
 
@@ -88,7 +88,7 @@ class LabyDisplay():
         self.armor = pygame.image.load(
             inventory + "armor.png"
         ).convert_alpha()
-    
+
         self.armor_menu = pygame.image.load(
             inventory + "armor2.png"
         ).convert_alpha()
@@ -117,7 +117,7 @@ class LabyDisplay():
         self.life1 = pygame.image.load(
             inventory + "life1.png"
         ).convert_alpha()
-    
+
         self.life2 = pygame.image.load(
             inventory + "life2.png"
         ).convert_alpha()
@@ -125,31 +125,31 @@ class LabyDisplay():
             inventory + "life3.png"
         ).convert_alpha()
 
-        ### labyrinth ###
-        labyrinth = "resources/images/labyrinth/" 
+        ### maze ###
+        maze = "resources/images/maze/"
         # Wall
         self.wall = pygame.image.load(
-            labyrinth + "wall.png"
+            maze + "wall.png"
         ).convert()
 
         # Passage
         self.path_pic = pygame.image.load(
-            labyrinth + "wood.png"
+            maze + "wood.png"
         ).convert()
         # Gardian
         self.gardian = pygame.image.load(
-            labyrinth + "gardian.png"
+            maze + "gardian.png"
         ).convert_alpha()
         # fire
         self.golem_pic = pygame.image.load(
-            labyrinth + "golem.png"
+            maze + "golem.png"
         ).convert_alpha()
         # buttons
         self.restart_button = pygame.image.load(
-            labyrinth + "B_restart.png"
+            maze + "B_restart.png"
         ).convert()
         self.home_button = pygame.image.load(
-            labyrinth + "B_home.png"
+            maze + "B_home.png"
         ).convert()
 
     def create_rect(self):
@@ -159,12 +159,12 @@ class LabyDisplay():
         self.restart_rect = pygame.Rect((0, 610), (100, 30))
         self.quit_game_rect = pygame.Rect((0, 645), (100, 30))
 
-    def display_labyrinth(self):
-        """ display labyrinth images
+    def display_maze(self):
+        """ display maze images
         """
 
         line_nbr = 0
-        for line in self.labyrinth:
+        for line in self.maze:
             column_nbr = 0
             for sprite in line:
 
@@ -238,7 +238,7 @@ class LabyDisplay():
                         self.init_game()
 
                     if self.quit_game_rect.collidepoint(event.pos):
-                        self.player.run = "home"
+                        self.player.game_status = "home"
 
             # request movement using method movement_request() from Class Player()
             elif event.type == pygame.KEYDOWN:
@@ -260,21 +260,22 @@ class LabyDisplay():
                     self.player_pic = self.playerup
 
     def display(self):
-        """ Dispaly labyrinth surface
+        """ Dispaly maze surface
         """
-
+        # initial player pic
         self.player_pic = self.playerdown
-        self.gardian_pic = self.gardian
 
+        # set repeat mode for keydown
         pygame.key.set_repeat(100, 70)
 
-        while self.player.run == "game":
+        # display loop
+        while self.player.game_status == "game":
 
             # Display menu
             self.display_menu()
 
             # Display labytinth
-            self.display_labyrinth()
+            self.display_maze()
 
             # player position in pixel
             self.player_position = (
@@ -287,7 +288,8 @@ class LabyDisplay():
             # Pygame event
             self.pygame_event()
 
-            self.interface = self.player.run
+            # refresh interface
+            self.interface = self.player.game_status
 
             # Refresh pygame display
             pygame.display.flip()
