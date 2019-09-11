@@ -1,10 +1,9 @@
 
 """ maze
-    Create the full structure of the maze
-
+    Create the full structure of the maze 
     w = wall    p = path    f = golem
 
-    items:
+    add items at random position on the maze
     A = Armor   H = Helmet  S = Sword   L = Life
 """
 
@@ -16,7 +15,7 @@ from random import randrange, choice
 
 class Maze():
     """ Create the structure of full maze with a file.txt
-        add items at random position on the maze
+        
     """
 
     def __init__(self):

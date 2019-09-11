@@ -1,6 +1,6 @@
 
-""" game display
-    display game interface
+""" maze display
+    display maze interface
 """
 
 #!/usr/bin/python3
@@ -16,7 +16,7 @@ from backend.maze import Maze
 from backend.player import Player
 
 class MazeDisplay():
-    """ Display laby interface
+    """ Display maze interface
     """
 
     def __init__(self):
@@ -274,7 +274,7 @@ class MazeDisplay():
             # Display menu
             self.display_menu()
 
-            # Display labytinth
+            # Display maze
             self.display_maze()
 
             # player position in pixel
@@ -285,7 +285,7 @@ class MazeDisplay():
             # display player
             self.window_surface.blit(self.player_pic, self.player_position)
 
-            # Pygame event
+            # chack for Pygame event
             self.pygame_event()
 
             # refresh interface
