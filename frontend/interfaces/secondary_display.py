@@ -43,28 +43,46 @@ class SecondaryDisplay():
         """
 
         if self.active_interface == "lost":
-            self.interface_pic = pygame.image.load("resources/images/lost.png").convert()
+            self.interface_pic = pygame.image.load(
+                "resources/images/lost.png"
+            ).convert()
 
         elif self.active_interface == "win":
-            self.interface_pic = pygame.image.load("resources/images/win.png").convert()
+            self.interface_pic = pygame.image.load(
+                "resources/images/win.png"
+            ).convert()
 
         else:
-            self.interface_pic = pygame.image.load("resources/images/home.png").convert()
-            self.info_pic = pygame.image.load("resources/images/info.png").convert()
+            self.interface_pic = pygame.image.load(
+                "resources/images/home.png"
+            ).convert()
+            self.info_pic = pygame.image.load(
+                "resources/images/info.png"
+            ).convert()
 
     def create_rect(self):
         """ Create rect surfaces
         """
 
-        self.quit_rect = pygame.Rect((175, 450), (100, 30))
+        self.quit_rect = pygame.Rect(
+            (175, 450), (100, 30)
+        )
 
         if self.active_interface == "home":
-            self.start_rect = pygame.Rect((175, 400), (100, 30))
-            self.info_rect = pygame.Rect((200, 80), (50, 30))
+            self.start_rect = pygame.Rect(
+                (175, 400), (100, 30)
+            )
+            self.info_rect = pygame.Rect(
+                (200, 80), (50, 30)
+            )
 
         else:
-            self.home_rect = pygame.Rect((175, 400), (100, 30))
-            self.start_restart_rect = pygame.Rect((175, 350), (100, 30))
+            self.home_rect = pygame.Rect(
+                (175, 400), (100, 30)
+            )
+            self.start_restart_rect = pygame.Rect(
+                (175, 350), (100, 30)
+            )
 
     def pygame_event_home(self):
         """ Manage Home pygame event"""

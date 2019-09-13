@@ -72,16 +72,13 @@ class Player():
 
         elif self.movement == "UP" and line_pos > 0:
             line_pos -= 1
-        
-        else:
-            pass
 
         # call 'move' method
         self.move(line_pos, column_pos)
 
     def move(self, line_pos, column_pos):
         """ check the next sprite before change player position
-            game_status method 'actions' from Class Events
+            use method 'actions' from Class Events
         """
         # new sprite content
         self.sprite = self.maze[line_pos][column_pos]

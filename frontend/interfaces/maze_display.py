@@ -156,8 +156,12 @@ class MazeDisplay():
         """ Create rect
         """
 
-        self.restart_rect = pygame.Rect((0, 610), (100, 30))
-        self.quit_game_rect = pygame.Rect((0, 645), (100, 30))
+        self.restart_rect = pygame.Rect(
+            (0, 610), (100, 30)
+        )
+        self.quit_game_rect = pygame.Rect(
+            (0, 645), (100, 30)
+        )
 
     def display_maze(self):
         """ display maze images
